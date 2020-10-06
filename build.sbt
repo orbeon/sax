@@ -1,7 +1,5 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-enablePlugins(ScalaJSPlugin)
-
 val ScalaTestVersion = "3.2.1"
 
 val scala212 = "2.12.12"
@@ -10,10 +8,10 @@ val supportedScalaVersions = List(scala212, scala213)
 
 ThisBuild / scalaVersion := scala213
 
-traceLevel        in ThisBuild := 0
-githubOwner       in ThisBuild := "orbeon"
-githubRepository  in ThisBuild := "sax"
-githubTokenSource in ThisBuild := TokenSource.Environment("GITHUB_TOKEN")
+ThisBuild / traceLevel        := 0
+ThisBuild / githubOwner       := "orbeon"
+ThisBuild / githubRepository  := "sax"
+ThisBuild / githubTokenSource := TokenSource.Environment("GITHUB_TOKEN")
 
 lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) in file("."))
   .settings(
@@ -33,10 +31,10 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) 
     libraryDependencies += "org.scalactic" %%% "scalactic"     % ScalaTestVersion    % Test,
     libraryDependencies += "org.scalatest" %%% "scalatest"     % ScalaTestVersion    % Test,
 
-    testOptions       in Test          += Tests.Argument(TestFrameworks.ScalaTest, "-oF"),
+    Test    / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oF"),
 
-    javaSource in Compile  := baseDirectory.value / "dummy",
-    javaSource in Test     := baseDirectory.value / "dummy"
+    Compile / javaSource  := baseDirectory.value / "dummy",
+    Test    / javaSource  := baseDirectory.value / "dummy"
   )
 
 lazy val saxJS  = sax.js
