@@ -11,17 +11,17 @@ class InputSource {
   private var encoding       : String      = null
   private var characterStream: Reader      = null
 
-  def this(systemId: String) {
+  def this(systemId: String) = {
     this()
     setSystemId(systemId)
   }
 
-  def this(byteStream: InputStream) {
+  def this(byteStream: InputStream) = {
     this()
     setByteStream(byteStream)
   }
 
-  def this(characterStream: Reader) {
+  def this(characterStream: Reader) = {
     this()
     setCharacterStream(characterStream)
   }

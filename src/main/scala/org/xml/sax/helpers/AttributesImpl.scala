@@ -7,7 +7,7 @@ class AttributesImpl extends Attributes {
   private[helpers] var length = 0
   private[helpers] var data: Array[String] = null
 
-  def this(atts: Attributes) {
+  def this(atts: Attributes) = {
     this()
     setAttributes(atts)
   }

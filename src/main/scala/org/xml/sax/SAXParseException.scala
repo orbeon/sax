@@ -13,7 +13,7 @@ class SAXParseException(message: String, e: Exception) extends SAXException(mess
   def getLineNumber  : Int    = this.lineNumber
   def getColumnNumber: Int    = this.columnNumber
 
-  def this(message: String, locator: Locator) {
+  def this(message: String, locator: Locator) = {
     this(message, null: Exception)
     if (locator != null)
       init(locator.getPublicId, locator.getSystemId, locator.getLineNumber, locator.getColumnNumber)
@@ -21,7 +21,7 @@ class SAXParseException(message: String, e: Exception) extends SAXException(mess
       init(null, null, -1, -1)
   }
 
-  def this(message: String, locator: Locator, e: Exception) {
+  def this(message: String, locator: Locator, e: Exception) = {
     this(message, e)
     if (locator != null)
       init(locator.getPublicId, locator.getSystemId, locator.getLineNumber, locator.getColumnNumber)
@@ -29,12 +29,12 @@ class SAXParseException(message: String, e: Exception) extends SAXException(mess
       init(null, null, -1, -1)
   }
 
-  def this(message: String, publicId: String, systemId: String, lineNumber: Int, columnNumber: Int) {
+  def this(message: String, publicId: String, systemId: String, lineNumber: Int, columnNumber: Int) = {
     this(message, null: Exception)
     init(publicId, systemId, lineNumber, columnNumber)
   }
 
-  def this(message: String, publicId: String, systemId: String, lineNumber: Int, columnNumber: Int, e: Exception) {
+  def this(message: String, publicId: String, systemId: String, lineNumber: Int, columnNumber: Int, e: Exception) = {
     this(message, e)
     init(publicId, systemId, lineNumber, columnNumber)
   }

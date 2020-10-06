@@ -2,11 +2,11 @@ package org.xml.sax
 
 class SAXException(message: String, e: Exception) extends Exception(message, e) {
 
-  def this(message: String) {
+  def this(message: String) = {
     this(message, null)
   }
 
-  def this(e: Exception) {
+  def this(e: Exception) = {
     this(null, e)
   }
 
