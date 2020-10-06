@@ -4,24 +4,22 @@ enablePlugins(ScalaJSPlugin)
 
 val ScalaTestVersion = "3.2.1"
 
-lazy val scala212 = "2.12.10"
-lazy val scala213 = "2.13.1" // 2.13.3 is not supported with Scala.js 0.6.x
-lazy val supportedScalaVersions = List(scala212, scala213)
+val scala212 = "2.12.12"
+val scala213 = "2.13.3"
+val supportedScalaVersions = List(scala212, scala213)
+
+ThisBuild / scalaVersion := scala213
 
 traceLevel        in ThisBuild := 0
 githubOwner       in ThisBuild := "orbeon"
 githubRepository  in ThisBuild := "sax"
 githubTokenSource in ThisBuild := TokenSource.Environment("GITHUB_TOKEN")
 
-publish / skip := true
-
-lazy val DebugTest = config("debug-test") extend Test
-
 lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) in file("."))
   .settings(
     organization := "org.xml",
     name         := "sax",
-    version      := "2.0.2-SNAPSHOT",
+    version      := "2.0.2.2-SNAPSHOT",
 
     scalaVersion       := scala213,
     crossScalaVersions := supportedScalaVersions,
@@ -40,13 +38,15 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) 
     javaSource in Compile  := baseDirectory.value / "dummy",
     javaSource in Test     := baseDirectory.value / "dummy"
   )
-  .configs(DebugTest)
-  .jvmSettings(
-    fork              in DebugTest     := true, // "By default, tests executed in a forked JVM are executed sequentially"
-    sourceDirectory   in DebugTest     := (sourceDirectory in Test).value,
-    javaOptions       in DebugTest     += "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005",
-    parallelExecution in DebugTest     := false
-  )
 
 lazy val saxJS  = sax.js
-lazy val saxJVM = sax.jvm.configs(DebugTest)
+lazy val saxJVM = sax.jvm
+
+lazy val root = project.in(file("."))
+  .aggregate(saxJS, saxJVM)
+  .settings(
+    publish := {},
+    publishLocal := {},
+    ThisProject / sourceDirectory := baseDirectory.value / "root",
+    crossScalaVersions            := Nil // "crossScalaVersions must be set to Nil on the aggregating project"
+  )
