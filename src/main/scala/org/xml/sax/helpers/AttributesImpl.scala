@@ -1,4 +1,3 @@
-
 package org.xml.sax.helpers
 
 import org.xml.sax.Attributes

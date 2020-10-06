@@ -8,7 +8,12 @@ lazy val scala212 = "2.12.10"
 lazy val scala213 = "2.13.1" // 2.13.3 is not supported with Scala.js 0.6.x
 lazy val supportedScalaVersions = List(scala212, scala213)
 
-traceLevel in ThisBuild := 0
+traceLevel        in ThisBuild := 0
+githubOwner       in ThisBuild := "orbeon"
+githubRepository  in ThisBuild := "sax"
+githubTokenSource in ThisBuild := TokenSource.Environment("GITHUB_TOKEN")
+
+publish / skip := true
 
 lazy val DebugTest = config("debug-test") extend Test
 
@@ -16,7 +21,7 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) 
   .settings(
     organization := "org.xml",
     name         := "sax",
-    version      := "2.0.2",
+    version      := "2.0.2-SNAPSHOT",
 
     scalaVersion       := scala213,
     crossScalaVersions := supportedScalaVersions,
