@@ -17,7 +17,7 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform).crossType(CrossType.Pure) 
   .settings(
     organization := "org.xml",
     name         := "sax",
-    version      := "2.0.2.2-SNAPSHOT",
+    version      := "2.0.2.3-SNAPSHOT",
 
     scalaVersion       := scala213,
     crossScalaVersions := supportedScalaVersions,
