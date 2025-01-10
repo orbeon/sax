@@ -3,11 +3,8 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 enablePlugins(ScalaJSPlugin)
 enablePlugins(ScalaNativePlugin)
 
-//val ScalaTestVersion = "3.2.1"
-
-val scala212 = "2.12.13"
-val scala213 = "2.13.4"
-val supportedScalaVersions = List(scala212, scala213)
+val scala213 = "2.13.15"
+val supportedScalaVersions = List(scala213)
 
 ThisBuild / scalaVersion := scala213
 
@@ -20,7 +17,7 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform, NativePlatform).crossType(
   .settings(
     organization := "org.xml",
     name         := "sax",
-    version      := "2.0.2.8-SNAPSHOT",
+    version      := "2.0.2.9-SNAPSHOT",
 
     scalaVersion       := scala213,
     crossScalaVersions := supportedScalaVersions,
@@ -30,11 +27,6 @@ lazy val sax = (crossProject(JVMPlatform, JSPlatform, NativePlatform).crossType(
       "-deprecation",
       "-unchecked"
     ),
-
-//    libraryDependencies += "org.scalactic" %%% "scalactic"     % ScalaTestVersion    % Test,
-//    libraryDependencies += "org.scalatest" %%% "scalatest"     % ScalaTestVersion    % Test,
-//
-//    Test    / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oF"),
 
     Compile / javaSource  := baseDirectory.value / "dummy",
     Test    / javaSource  := baseDirectory.value / "dummy"
